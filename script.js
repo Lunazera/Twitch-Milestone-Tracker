@@ -19,11 +19,7 @@ let ws;  // will contain our websocket connection
 
 let barType;  // Type setting of bar  = Widget.values.get('bar-type')
 
-let GOAL = 0;  // value of Goal bar
 let amount = "$0";  // value of amount progressed in goal bar
-
-// The Bar percentage filled is calculated by calculatePercentage() using
-// ((amount-amountOffset) / (GOAL - amountOFfset)) * 100
 
 let wssData = "$0";  // Data stored from websocket
 
@@ -75,9 +71,6 @@ function widgetValuesListener(event) {
 	numberMilestonesFuture = Widget.values.get('n-next-milestones') ?? 1;
 
 	updateMilestones(amount);
-
-	/// Load in data into 'Goal'
-	updateGoal();
 
 	// Set reference to widget ID
 	const widgetElement = document.getElementById('widget');
@@ -212,41 +205,9 @@ function widgetValuesListener(event) {
 		}
 	}
 
-
 	loadMilestoneAppearanceSettings('previous-');
-	if ((Widget.values.get('previous-milestones-toggle') ?? true)) {
-		let previousRows = document.querySelectorAll('.milestone-past');
-		for (let i = 0; i < previousRows.length; i++) {
-			previousRows[i].classList.toggle('milestone-past-appearance', Widget.values.get('previous-milestones-toggle'));
-		}
-	}
-
 	loadMilestoneAppearanceSettings('current-');
-	if ((Widget.values.get('current-milestones-toggle') ?? true)) {
-		let currentRows = document.querySelectorAll('.milestone-current');
-		for (let i = 0; i < currentRows.length; i++) {
-			currentRows[i].classList.toggle('milestone-current-appearance', Widget.values.get('current-milestones-toggle'));
-		}
-	}
-
-
-
-
-
-
-	// // Title Text Separate settings
-	// if (Widget.values.get('title-adjust-toggle')) {
-	// 	textTitle.classList.toggle('text-title-settings', true);
-	// } else {
-	// 	textTitle.classList.toggle('text-title-settings', false);
-	// }
-	// if (Widget.values.get('title-text-adjust-toggle')) {
-	// 	textTitle.classList.toggle('text-title-settings-position', true);
-	// } else {
-	// 	textTitle.classList.toggle('text-title-settings-position', false);
-	// }
-
-
+	
 	// table settings
 	setCustomCSS('table-spacing', 
 		`0px`  // ${Widget.values.get('table-x-spacing') ?? 0}px   <- this would let you also use a slider for horizontal spacing. but 
@@ -255,17 +216,23 @@ function widgetValuesListener(event) {
 	setCustomCSS('table-margin-left', `${Widget.values.get('table-margin-left') ?? 0}px`);
 	setCustomCSS('table-margin-top', `${Widget.values.get('table-margin-top') ?? 0}px`);
 
+}
 
 
-
-	// // Element Display Settings
-	// if (Widget.values.get('title-toggle')) {
-	// 	setCustomCSS('text-title-display', 'block');
-	// } else {
-	// 	setCustomCSS('text-title-display', 'none');
-	// }
-
-
+function AdjustMilestoneClasses() {
+	if ((Widget.values.get('previous-milestones-toggle') ?? true)) {
+		let previousRows = document.querySelectorAll('.milestone-past');
+		console.log("previous rows found: " + previousRows.length);
+		for (let i = 0; i < previousRows.length; i++) {
+			previousRows[i].classList.toggle('milestone-past-appearance', Widget.values.get('previous-milestones-toggle'));
+		}
+	}
+	if ((Widget.values.get('current-milestones-toggle') ?? true)) {
+		let currentRows = document.querySelectorAll('.milestone-current');
+		for (let i = 0; i < currentRows.length; i++) {
+			currentRows[i].classList.toggle('milestone-current-appearance', Widget.values.get('current-milestones-toggle'));
+		}
+	}
 }
 
 /* Widget account load listener (this runs once) *******************************************************************/
@@ -402,7 +369,6 @@ var wsOnMessage = function(event) {
 	amount = event.data;
 
 	updateMilestones(amount);
-	updateGoal();
 }
 
 var wsOnClose = function(e) {
@@ -421,28 +387,6 @@ var wsOnError = function(err) {
 
 
 /* Progress Bar *******************************************************************/
-
-/// Update Goal value
-function updateGoal() {
-	switch(Widget.values.get('bar-type')) {
-		case 'bar-goal':
-			// Bar set to "single goal"
-			GOAL = Widget.values.get('goal') ?? 0;
-			break;
-		case 'bar-milestone':
-			// Bar set to milestones
-			GOAL = getMilestoneAmount(MilestoneIndex);
-			break;
-	}
-}
-
-/// Calculates percentage of amount progressed against goal
-function calculatePercentage(amount, goal, offset) {
-	// ((amount-amountOffset) / (GOAL - amountOFfset)) * 100
-	// or of the form
-	// ((a - x) / (b - x)) * 100
-	return Math.min(Math.max(((amount - offset) / (goal - offset)) * 100, 0), 100);
-}
 
 
 /* Milestones *******************************************************************/
@@ -469,8 +413,6 @@ function readMilestoneList() {
 	return parsedList;
 }
 
-
-
 /// Takes parsed milestone list and writes a table of milestones
 function writeMilestoneList() {
 	clearMilestoneList();
@@ -478,9 +420,8 @@ function writeMilestoneList() {
 		const milestoneamount = getMilestoneAmount(i);
 		const milestonetext = getMilestoneText(i);
 		writeMilestoneRow(milestoneamount, milestonetext, `milestone-${
-		i + 1 < MilestoneIndex ? "past" :
-		i + 1 == MilestoneIndex ? "current" :
-		i + 1 == MilestoneIndex + 1 ? "next" : "future"
+		i + 1 <= MilestoneIndex ? "past" :
+		i + 1 == MilestoneIndex + 1 ? "current" : "future"
 		}`, i + 1 < MilestoneIndex, 
 		!((i + 1 <= MilestoneIndex + numberMilestonesFuture) && (i + 1 >= MilestoneIndex - numberMilestonesPast)) );
 	}
@@ -583,6 +524,8 @@ function findNextMilestone(val) {
 /// Update loop to run for milestones
 function updateMilestones(amount) {
 	readMilestoneList();
-	findNextMilestone(amount);	
+	findNextMilestone(amount);
+
 	writeMilestoneList();
+	AdjustMilestoneClasses();
 }

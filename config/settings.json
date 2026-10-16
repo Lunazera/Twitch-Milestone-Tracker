@@ -52,11 +52,7 @@
 			"milestone-list": {
 				"type": "text-area-input",
 				"label": "Milestone List",
-				"condition": {
-					"bar-type": [
-						"bar-milestone"
-					]
-				},
+				"condition": {},
 				"defaultValue": "500, milestone",
 				"placeholder": "number, text",
 				"description": "List of milestones, formatted as [number, text].\nexample: 500, eat a pickle"
