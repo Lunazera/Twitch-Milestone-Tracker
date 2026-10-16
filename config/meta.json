@@ -3,7 +3,7 @@
 	"name": "Twitch Milestone Tracker",
 	"creator": "LatentLogic & lunazera",
 	"version": "0.1.0",
-	"website": "https://github.com/Lunazera/Twitch-Goal-Tracker",
+	"website": "https://github.com/Lunazera/Twitch-Milestone-Tracker",
 	"support": "https://github.com/Latent-Logic/twitch-dono-clock",
 	"type": [
 		"overlay"

@@ -4,7 +4,7 @@
 		"settings": {
 			"widget-desc": {
 				"type": "text-display",
-				"label": "This is a goal tracker progress bar for Twitch, set up to work with the Twitch Dono Clock (https://github.com/Latent-Logic/twitch-dono-clock)\n\nYou can either have this track a single goal, or track through a list of milestones."
+				"label": "This is a milestone tracker Twitch, set up to work with the Twitch Dono Clock (https://github.com/Latent-Logic/twitch-dono-clock)\n\nIt will display a list of milestones you provide, letting you style and position it however you like! Previously hit milestones and the current milestone can be styled differently. The overlay will update according to the latest total amount raised."
 			},
 			"websocket-settings": {
 				"type": "section",
