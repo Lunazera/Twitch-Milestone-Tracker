@@ -189,6 +189,14 @@ table {
     text-shadow: var(--custom-previous-text-shadow-offset-x) var(--custom-previous-text-shadow-offset-y) var(--custom-previous-text-shadow-blur) var(--custom-previous-text-shadow-color);
 }
 
+.milestone-past-decoration {
+
+    text-decoration: var(--custom-previous-deco);
+    text-decoration-color: var(--custom-previous-deco-color);
+    text-decoration-style: var(--custom-previous-deco-style);
+    text-decoration-thickness: var(--custom-previous-deco-thickness);
+}
+
 .milestone-current {
     /* color:green; */
 }

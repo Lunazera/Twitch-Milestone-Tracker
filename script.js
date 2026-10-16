@@ -165,25 +165,6 @@ function widgetValuesListener(event) {
 			setCustomCSS(prefix + 'text-shadow-color', 'none');
 		}
 	}
-
-	loadWidgetTextSettings();
-	// loadWidgetTextSettings('title-');
-
-	loadWidgetTextSettings('amount-');
-
-
-
-	// Toggle change of amount styling separately
-	let rowsAmounts = document.querySelectorAll('.milestone-amounts');
-
-	for (let i = 0; i < rowsAmounts.length; i++) {
-		rowsAmounts[i].classList.toggle('milestone-amounts-settings', Widget.values.get('amount-text-appearance-toggle'));
-		rowsAmounts[i].classList.toggle('milestone-amounts-background', Widget.values.get('amount-text-background-toggle'));
-		rowsAmounts[i].classList.toggle('milestone-amounts-shadow', Widget.values.get('amount-text-shadow-toggle'));
-		rowsAmounts[i].classList.toggle('milestone-amounts-position', Widget.values.get('amount-text-adjust-toggle'));
-	}
-
-
 	function loadMilestoneAppearanceSettings(prefix = '') {
 		setCustomCSS(prefix + 'color-settings', (Widget.values.get(prefix + 'color-settings') ?? 'red'));
 		setCustomCSS(prefix + 'font-weight', (Widget.values.get(prefix + 'font-weight') ?? 'normal'));
@@ -205,6 +186,37 @@ function widgetValuesListener(event) {
 		}
 	}
 
+	loadWidgetTextSettings();
+	// loadWidgetTextSettings('title-');
+
+	loadWidgetTextSettings('amount-');
+
+	// Text decorations
+	setCustomCSS('previous-deco-thickness', `${Widget.values.get('previous-deco-thickness') ?? 0}px`);
+	setCustomCSS('previous-deco-color', Widget.values.get('previous-deco-color') ?? 'black');
+	setCustomCSS('previous-deco-style', Widget.values.get('previous-deco-style') ?? 'solid');
+	switch (Widget.values.get('prev-text-deco')) {
+		case 0:
+			setCustomCSS('previous-deco', 'none');
+			break;
+		case 1:
+			setCustomCSS('previous-deco', 'line-through');
+			break;
+		case 2:
+			setCustomCSS('previous-deco', 'underline');
+			break;
+		case 3:
+			setCustomCSS('previous-deco', 'overline');
+			break;
+	}
+
+	
+
+	
+
+
+	
+
 	loadMilestoneAppearanceSettings('previous-');
 	loadMilestoneAppearanceSettings('current-');
 	
@@ -222,7 +234,6 @@ function widgetValuesListener(event) {
 function AdjustMilestoneClasses() {
 	if ((Widget.values.get('previous-milestones-toggle') ?? true)) {
 		let previousRows = document.querySelectorAll('.milestone-past');
-		console.log("previous rows found: " + previousRows.length);
 		for (let i = 0; i < previousRows.length; i++) {
 			previousRows[i].classList.toggle('milestone-past-appearance', Widget.values.get('previous-milestones-toggle'));
 		}
@@ -233,6 +244,25 @@ function AdjustMilestoneClasses() {
 			currentRows[i].classList.toggle('milestone-current-appearance', Widget.values.get('current-milestones-toggle'));
 		}
 	}
+	// decoration
+	if ((Widget.values.get('prev-text-deco') > 0)) {
+		let previousRows = document.querySelectorAll('.milestone-past');
+		for (let i = 0; i < previousRows.length; i++) {
+			previousRows[i].classList.toggle('milestone-past-decoration', (Widget.values.get('prev-text-deco') > 0));
+		}
+	}
+	// Toggle change of amount styling separately
+	let rowsAmounts = document.querySelectorAll('.milestone-amounts');
+
+	for (let i = 0; i < rowsAmounts.length; i++) {
+		rowsAmounts[i].classList.toggle('milestone-amounts-settings', Widget.values.get('amount-text-appearance-toggle'));
+		rowsAmounts[i].classList.toggle('milestone-amounts-background', Widget.values.get('amount-text-background-toggle'));
+		rowsAmounts[i].classList.toggle('milestone-amounts-shadow', Widget.values.get('amount-text-shadow-toggle'));
+		rowsAmounts[i].classList.toggle('milestone-amounts-position', Widget.values.get('amount-text-adjust-toggle'));
+	}
+
+
+	
 }
 
 /* Widget account load listener (this runs once) *******************************************************************/

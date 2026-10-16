@@ -932,6 +932,91 @@
 				"type": "section",
 				"label": "Previous Milestones",
 				"settings": {
+					"prev-text-deco": {
+						"type": "dropdown-input",
+						"label": "Text Decoration",
+						"defaultValue": 0,
+						"options": [
+							{
+								"label": "None",
+								"value": 0
+							},
+							{
+								"label": "Strike Through",
+								"value": 1
+							},
+							{
+								"label": "Underline",
+								"value": 2
+							},
+							{
+								"label": "Overline",
+								"value": 3
+							}
+						]
+					},
+					"previous-deco-thickness": {
+						"type": "slider-input",
+						"label": "Text Decoration Thickness",
+						"condition": {
+							"prev-text-deco": [
+								1,
+								2,
+								3
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 1,
+						"min": 0,
+						"max": 100,
+						"step": 0.5
+					},
+					"previous-deco-color": {
+						"type": "color-input",
+						"label": "Text Decoration Color",
+						"condition": {
+							"prev-text-deco": [
+								1,
+								2,
+								3
+							]
+						},
+						"halfSpan": true
+					},
+					"previous-deco-style": {
+						"type": "dropdown-input",
+						"label": "Text Decoration Style",
+						"condition": {
+							"prev-text-deco": [
+								1,
+								2,
+								3
+							]
+						},
+						"defaultValue": "solid",
+						"options": [
+							{
+								"label": "Solid",
+								"value": "solid"
+							},
+							{
+								"label": "Double",
+								"value": "double"
+							},
+							{
+								"label": "Dotted",
+								"value": "dotted"
+							},
+							{
+								"label": "Dashed",
+								"value": "dashed"
+							},
+							{
+								"label": "Wavy",
+								"value": "wavy"
+							}
+						]
+					},
 					"previous-milestones-toggle": {
 						"type": "toggle-input",
 						"label": "Change appearance for previous milestones?",
