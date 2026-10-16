@@ -1,0 +1,1207 @@
+{
+	"main-settings": {
+		"label": "Twitch Milestone Tracker",
+		"settings": {
+			"widget-desc": {
+				"type": "text-display",
+				"label": "This is a goal tracker progress bar for Twitch, set up to work with the Twitch Dono Clock (https://github.com/Latent-Logic/twitch-dono-clock)\n\nYou can either have this track a single goal, or track through a list of milestones."
+			},
+			"websocket-settings": {
+				"type": "section",
+				"label": "Websocket",
+				"settings": {
+					"wss-url": {
+						"type": "text-input",
+						"label": "Websocket URL",
+						"condition": {},
+						"placeholder": "wss://",
+						"description": "Target address for the websocket listener. This will establish a websocket connection that'll update whenever a donation event is received from the bot server."
+					},
+					"server-connect": {
+						"type": "toggle-input",
+						"label": "Connect to server",
+						"halfSpan": true,
+						"defaultValue": false,
+						"description": "Toggles whether to try to connect to the websocket. If false, you'll be able to set an placeholder amount for testing."
+					},
+					"test-amount-val": {
+						"type": "number-input",
+						"label": "Placeholder amount",
+						"condition": {},
+						"halfSpan": true,
+						"defaultValue": 500,
+						"min": 0,
+						"placeholder": "$ amount",
+						"description": "Uses this as the current amount raised when the server is not connected"
+					},
+					"ws-reconnect": {
+						"type": "button",
+						"label": "Reconnect"
+					},
+					"server-info": {
+						"type": "text-display",
+						"label": "This will try to establish a websocket connection when the page first loads, but shouldn't keep trying whenever you change you change values. If you aren't seeing the amount value update, Inspect page in your browser to see if there are connection issues"
+					}
+				}
+			}
+		}
+	},
+	"milestone-settings": {
+		"label": "Milestones",
+		"settings": {
+			"milestone-list": {
+				"type": "text-area-input",
+				"label": "Milestone List",
+				"condition": {
+					"bar-type": [
+						"bar-milestone"
+					]
+				},
+				"defaultValue": "500, milestone",
+				"placeholder": "number, text",
+				"description": "List of milestones, formatted as [number, text].\nexample: 500, eat a pickle"
+			},
+			"milestone-table-settings": {
+				"type": "section",
+				"label": "Table Settings",
+				"settings": {
+					"n-prev-milestones": {
+						"type": "number-input",
+						"label": "Show N Previous Milestones",
+						"halfSpan": true,
+						"defaultValue": 5,
+						"min": 0
+					},
+					"n-next-milestones": {
+						"type": "number-input",
+						"label": "Show N Next Milestones",
+						"halfSpan": true,
+						"defaultValue": 1,
+						"min": 0
+					},
+					"table-margin-top": {
+						"type": "slider-input",
+						"label": "Top Margin",
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 100,
+						"step": 1
+					},
+					"table-margin-left": {
+						"type": "slider-input",
+						"label": "Left Margin",
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 100,
+						"step": 1
+					},
+					"table-y-spacing": {
+						"type": "slider-input",
+						"label": "Row Spacing",
+						"defaultValue": 0,
+						"min": 0,
+						"max": 100,
+						"step": 1
+					}
+				}
+			}
+		}
+	},
+	"appearance-settings": {
+		"label": "Text Appearance",
+		"settings": {
+			"text-align": {
+				"type": "dropdown-input",
+				"label": "Alignment",
+				"halfSpan": true,
+				"defaultValue": "center",
+				"options": [
+					{
+						"label": "Center",
+						"value": "center"
+					},
+					{
+						"label": "Left",
+						"value": "left"
+					},
+					{
+						"label": "Right",
+						"value": "right"
+					}
+				]
+			},
+			"text-z": {
+				"type": "number-input",
+				"label": "Z-Index",
+				"halfSpan": true,
+				"defaultValue": 2,
+				"step": 1
+			},
+			"text-appearance": {
+				"type": "section",
+				"label": "Font",
+				"settings": {
+					"font-name": {
+						"type": "font-input",
+						"label": "Font",
+						"halfSpan": true,
+						"defaultValue": "Inter",
+						"placeholder": "Font name"
+					},
+					"font-weight": {
+						"type": "dropdown-input",
+						"label": "Font Weight",
+						"condition": {},
+						"halfSpan": true,
+						"defaultValue": 400,
+						"options": [
+							{
+								"label": "Thin",
+								"value": 100
+							},
+							{
+								"label": "Extra-Light",
+								"value": 200
+							},
+							{
+								"label": "Light",
+								"value": 300
+							},
+							{
+								"label": "Normal",
+								"value": 400
+							},
+							{
+								"label": "Medium",
+								"value": 500
+							},
+							{
+								"label": "Semi-Bold",
+								"value": 600
+							},
+							{
+								"label": "Bold",
+								"value": 700
+							},
+							{
+								"label": "Extra-Bold",
+								"value": 800
+							},
+							{
+								"label": "Heavy",
+								"value": 900
+							}
+						]
+					},
+					"font-size": {
+						"type": "slider-input",
+						"label": "Font Size (px)",
+						"defaultValue": 14,
+						"min": 1,
+						"max": 72,
+						"step": 1
+					},
+					"text-color": {
+						"type": "color-input",
+						"label": "Font Color",
+						"halfSpan": true,
+						"defaultValue": "#fff"
+					},
+					"text-outline-color": {
+						"type": "color-input",
+						"label": "Outline Color",
+						"halfSpan": true,
+						"defaultValue": "#000"
+					},
+					"text-outline": {
+						"type": "slider-input",
+						"label": "Outline",
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 10,
+						"step": 0.5
+					}
+				}
+			},
+			"text-area-settings": {
+				"type": "section",
+				"label": "Text Area",
+				"settings": {
+					"text-background-color": {
+						"type": "color-input",
+						"label": "Text Background Color",
+						"defaultValue": "#fff0"
+					},
+					"text-area-radius-heading": {
+						"type": "heading",
+						"label": "Corner Radius",
+						"halfSpan": true
+					},
+					"text-area-radius-toggle": {
+						"type": "toggle-input",
+						"label": "Adjust Corners Individually",
+						"halfSpan": true,
+						"defaultValue": false
+					},
+					"text-background-border-radius": {
+						"type": "slider-input",
+						"label": "Radius",
+						"condition": {
+							"text-area-radius-toggle": [
+								false
+							]
+						},
+						"defaultValue": 0,
+						"min": 0,
+						"max": 50,
+						"step": 1
+					},
+					"corner-radius-top-left": {
+						"type": "slider-input",
+						"label": "Top Left Corner",
+						"condition": {
+							"text-area-radius-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 100,
+						"step": 1
+					},
+					"corner-radius-top-right": {
+						"type": "slider-input",
+						"label": "Top Right Corner",
+						"condition": {
+							"text-area-radius-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 100,
+						"step": 1
+					},
+					"corner-radius-bottom-left": {
+						"type": "slider-input",
+						"label": "Bottom Left Corner",
+						"condition": {
+							"text-area-radius-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 100,
+						"step": 1
+					},
+					"corner-radius-bottom-right": {
+						"type": "slider-input",
+						"label": "Bottom Right Corner",
+						"condition": {
+							"text-area-radius-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 100,
+						"step": 1
+					},
+					"text-area-padding-header": {
+						"type": "heading",
+						"label": "Padding"
+					},
+					"padding-left": {
+						"type": "slider-input",
+						"label": "Padding Left",
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 50,
+						"step": 1
+					},
+					"padding-right": {
+						"type": "slider-input",
+						"label": "Padding Right",
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 50,
+						"step": 1
+					},
+					"padding-top": {
+						"type": "slider-input",
+						"label": "Padding Top",
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 50,
+						"step": 1
+					},
+					"padding-bottom": {
+						"type": "slider-input",
+						"label": "Padding Bottom",
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 50,
+						"step": 1
+					}
+				}
+			},
+			"text-shadow": {
+				"type": "section",
+				"label": "Text Shadow",
+				"settings": {
+					"text-shadow-toggle": {
+						"type": "toggle-input",
+						"label": "Use Shadow?",
+						"condition": {},
+						"defaultValue": true
+					},
+					"text-shadow-color": {
+						"type": "color-input",
+						"label": "Shadow Color",
+						"condition": {
+							"text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": "#000"
+					},
+					"text-shadow-blur": {
+						"type": "slider-input",
+						"label": "Shadow Blur (px)",
+						"condition": {
+							"text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 5,
+						"min": 0,
+						"max": 50,
+						"step": 0.5
+					},
+					"text-shadow-offset-x": {
+						"type": "slider-input",
+						"label": "Shadow Offset Horizontal (px)",
+						"condition": {
+							"text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 2,
+						"min": -25,
+						"max": 25,
+						"step": 0.5
+					},
+					"text-shadow-offset-y": {
+						"type": "slider-input",
+						"label": "Shadow Offset Vertical (px)",
+						"condition": {
+							"text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 2,
+						"min": -25,
+						"max": 25,
+						"step": 0.5
+					}
+				}
+			},
+			"text-position-section": {
+				"type": "section",
+				"label": "Text Positioning",
+				"settings": {
+					"text-adjust-toggle": {
+						"type": "toggle-input",
+						"label": "Adjust Position Settings?",
+						"defaultValue": false
+					},
+					"text-adjust-y": {
+						"type": "slider-input",
+						"label": "Adjust Vertical Position",
+						"condition": {
+							"text-adjust-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": -100,
+						"max": 100,
+						"step": 1
+					},
+					"text-adjust-x": {
+						"type": "slider-input",
+						"label": "Adjust Horizontal Position",
+						"condition": {
+							"text-adjust-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": -300,
+						"max": 300,
+						"step": 1
+					},
+					"text-rotate": {
+						"type": "slider-input",
+						"label": "Text Rotation",
+						"condition": {
+							"text-adjust-toggle": [
+								true
+							]
+						},
+						"defaultValue": 0,
+						"min": -90,
+						"max": 90,
+						"step": 0.1
+					}
+				}
+			}
+		}
+	},
+	"amount-appearance-settings": {
+		"label": "Amount Appearance",
+		"settings": {
+			"amount-text-align": {
+				"type": "dropdown-input",
+				"label": "Alignment",
+				"halfSpan": true,
+				"defaultValue": "center",
+				"options": [
+					{
+						"label": "Center",
+						"value": "center"
+					},
+					{
+						"label": "Left",
+						"value": "left"
+					},
+					{
+						"label": "Right",
+						"value": "right"
+					}
+				]
+			},
+			"amount-text-z": {
+				"type": "number-input",
+				"label": "Z-Index",
+				"halfSpan": true,
+				"defaultValue": 1,
+				"step": 1
+			},
+			"amount-text-appearance": {
+				"type": "section",
+				"label": "Font",
+				"settings": {
+					"amount-text-appearance-toggle": {
+						"type": "toggle-input",
+						"label": "Adjust Font Separately?",
+						"halfSpan": false,
+						"defaultValue": false
+					},
+					"font-name": {
+						"type": "font-input",
+						"label": "Font",
+						"condition": {
+							"amount-text-appearance-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": "Inter",
+						"placeholder": "Font name"
+					},
+					"amount-font-weight": {
+						"type": "dropdown-input",
+						"label": "Font Weight",
+						"condition": {
+							"amount-text-appearance-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 400,
+						"options": [
+							{
+								"label": "Thin",
+								"value": 100
+							},
+							{
+								"label": "Extra-Light",
+								"value": 200
+							},
+							{
+								"label": "Light",
+								"value": 300
+							},
+							{
+								"label": "Normal",
+								"value": 400
+							},
+							{
+								"label": "Medium",
+								"value": 500
+							},
+							{
+								"label": "Semi-Bold",
+								"value": 600
+							},
+							{
+								"label": "Bold",
+								"value": 700
+							},
+							{
+								"label": "Extra-Bold",
+								"value": 800
+							},
+							{
+								"label": "Heavy",
+								"value": 900
+							}
+						]
+					},
+					"amount-font-size": {
+						"type": "slider-input",
+						"label": "Font Size (px)",
+						"condition": {
+							"amount-text-appearance-toggle": [
+								true
+							]
+						},
+						"defaultValue": 14,
+						"min": 1,
+						"max": 72,
+						"step": 1
+					},
+					"amount-text-color": {
+						"type": "color-input",
+						"label": "Font Color",
+						"condition": {
+							"amount-text-appearance-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": "#fff"
+					},
+					"amount-text-outline-color": {
+						"type": "color-input",
+						"label": "Outline Color",
+						"condition": {
+							"amount-text-appearance-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": "#000"
+					},
+					"amount-text-outline": {
+						"type": "slider-input",
+						"label": "Outline",
+						"condition": {
+							"amount-text-appearance-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 10,
+						"step": 0.5
+					}
+				}
+			},
+			"amount-text-area-settings": {
+				"type": "section",
+				"label": "Text Area",
+				"settings": {
+					"amount-text-background-toggle": {
+						"type": "toggle-input",
+						"label": "Adjust Background Separately?",
+						"halfSpan": false,
+						"defaultValue": false
+					},
+					"amount-text-background-color": {
+						"type": "color-input",
+						"label": "Text Background Color",
+						"condition": {
+							"amount-text-background-toggle": [
+								true
+							]
+						},
+						"defaultValue": "#fff0"
+					},
+					"amount-text-area-radius-heading": {
+						"type": "heading",
+						"label": "Corner Radius",
+						"halfSpan": true
+					},
+					"amount-text-area-radius-toggle": {
+						"type": "toggle-input",
+						"label": "Adjust Corners Individually",
+						"halfSpan": true,
+						"defaultValue": false
+					},
+					"amount-text-background-border-radius": {
+						"type": "slider-input",
+						"label": "Radius",
+						"condition": {
+							"amount-text-area-radius-toggle": [
+								false
+							]
+						},
+						"defaultValue": 0,
+						"min": 0,
+						"max": 50,
+						"step": 1
+					},
+					"amount-corner-radius-top-left": {
+						"type": "slider-input",
+						"label": "Top Left Corner",
+						"condition": {
+							"amount-text-area-radius-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 100,
+						"step": 1
+					},
+					"amount-corner-radius-top-right": {
+						"type": "slider-input",
+						"label": "Top Right Corner",
+						"condition": {
+							"amount-text-area-radius-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 100,
+						"step": 1
+					},
+					"amount-corner-radius-bottom-left": {
+						"type": "slider-input",
+						"label": "Bottom Left Corner",
+						"condition": {
+							"amount-text-area-radius-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 100,
+						"step": 1
+					},
+					"amount-corner-radius-bottom-right": {
+						"type": "slider-input",
+						"label": "Bottom Right Corner",
+						"condition": {
+							"amount-text-area-radius-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 100,
+						"step": 1
+					},
+					"amount-text-area-padding-header": {
+						"type": "heading",
+						"label": "Padding",
+						"condition": {
+							"amount-text-background-toggle": [
+								true
+							],
+							"amount-text-appearance-toggle": [
+								true
+							]
+						}
+					},
+					"amount-padding-left": {
+						"type": "slider-input",
+						"label": "Padding Left",
+						"condition": {
+							"amount-text-background-toggle": [
+								true
+							],
+							"amount-text-appearance-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 50,
+						"step": 1
+					},
+					"amount-padding-right": {
+						"type": "slider-input",
+						"label": "Padding Right",
+						"condition": {
+							"amount-text-background-toggle": [
+								true
+							],
+							"amount-text-appearance-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 50,
+						"step": 1
+					},
+					"amount-padding-top": {
+						"type": "slider-input",
+						"label": "Padding Top",
+						"condition": {
+							"amount-text-background-toggle": [
+								true
+							],
+							"amount-text-appearance-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 50,
+						"step": 1
+					},
+					"amount-padding-bottom": {
+						"type": "slider-input",
+						"label": "Padding Bottom",
+						"condition": {
+							"amount-text-background-toggle": [
+								true
+							],
+							"amount-text-appearance-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 50,
+						"step": 1
+					}
+				}
+			},
+			"amount-text-shadow": {
+				"type": "section",
+				"label": "Text Shadow",
+				"settings": {
+					"amount-text-shadow-toggle": {
+						"type": "toggle-input",
+						"label": "Adjust Shadow Separately?",
+						"condition": {},
+						"defaultValue": true
+					},
+					"amount-text-shadow-color": {
+						"type": "color-input",
+						"label": "Shadow Color",
+						"condition": {
+							"amount-text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": "#000"
+					},
+					"amount-text-shadow-blur": {
+						"type": "slider-input",
+						"label": "Shadow Blur (px)",
+						"condition": {
+							"amount-text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 5,
+						"min": 0,
+						"max": 50,
+						"step": 0.5
+					},
+					"amount-text-shadow-offset-x": {
+						"type": "slider-input",
+						"label": "Shadow Offset Horizontal (px)",
+						"condition": {
+							"amount-text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 2,
+						"min": -25,
+						"max": 25,
+						"step": 0.5
+					},
+					"amount-text-shadow-offset-y": {
+						"type": "slider-input",
+						"label": "Shadow Offset Vertical (px)",
+						"condition": {
+							"amount-text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 2,
+						"min": -25,
+						"max": 25,
+						"step": 0.5
+					}
+				}
+			},
+			"amount-text-position-section": {
+				"type": "section",
+				"label": "Text Positioning",
+				"settings": {
+					"amount-text-adjust-toggle": {
+						"type": "toggle-input",
+						"label": "Adjust Position Separately?",
+						"defaultValue": false
+					},
+					"amount-text-adjust-y": {
+						"type": "slider-input",
+						"label": "Adjust Vertical Position",
+						"condition": {
+							"amount-text-adjust-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": -100,
+						"max": 100,
+						"step": 1
+					},
+					"amount-text-adjust-x": {
+						"type": "slider-input",
+						"label": "Adjust Horizontal Position",
+						"condition": {
+							"amount-text-adjust-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": -300,
+						"max": 300,
+						"step": 1
+					},
+					"amount-text-rotate": {
+						"type": "slider-input",
+						"label": "Text Rotation",
+						"condition": {
+							"amount-text-adjust-toggle": [
+								true
+							]
+						},
+						"defaultValue": 0,
+						"min": -90,
+						"max": 90,
+						"step": 0.1
+					}
+				}
+			}
+		}
+	},
+	"progress-styling": {
+		"label": "Milestone Progress Styling",
+		"settings": {
+			"previous-text-section": {
+				"type": "section",
+				"label": "Previous Milestones",
+				"settings": {
+					"previous-milestones-toggle": {
+						"type": "toggle-input",
+						"label": "Change appearance for previous milestones?",
+						"defaultValue": false
+					},
+					"previous-color-settings": {
+						"type": "color-input",
+						"label": "Color Settings",
+						"halfSpan": true
+					},
+					"previous-font-weight": {
+						"type": "dropdown-input",
+						"label": "Font Weight",
+						"condition": {},
+						"halfSpan": true,
+						"defaultValue": 400,
+						"options": [
+							{
+								"label": "Thin",
+								"value": 100
+							},
+							{
+								"label": "Extra-Light",
+								"value": 200
+							},
+							{
+								"label": "Light",
+								"value": 300
+							},
+							{
+								"label": "Normal",
+								"value": 400
+							},
+							{
+								"label": "Medium",
+								"value": 500
+							},
+							{
+								"label": "Semi-Bold",
+								"value": 600
+							},
+							{
+								"label": "Bold",
+								"value": 700
+							},
+							{
+								"label": "Extra-Bold",
+								"value": 800
+							},
+							{
+								"label": "Heavy",
+								"value": 900
+							}
+						]
+					},
+					"previous-text-outline-color": {
+						"type": "color-input",
+						"label": "Outline Color",
+						"halfSpan": true,
+						"defaultValue": "#000"
+					},
+					"previous-text-outline": {
+						"type": "slider-input",
+						"label": "Outline",
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 10,
+						"step": 0.5
+					},
+					"previous-text-shadow-toggle": {
+						"type": "toggle-input",
+						"label": "Use Shadow?",
+						"condition": {},
+						"defaultValue": true
+					},
+					"previous-text-shadow-color": {
+						"type": "color-input",
+						"label": "Shadow Color",
+						"condition": {
+							"previous-text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": "#000"
+					},
+					"previous-text-shadow-blur": {
+						"type": "slider-input",
+						"label": "Shadow Blur (px)",
+						"condition": {
+							"previous-text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 5,
+						"min": 0,
+						"max": 50,
+						"step": 0.5
+					},
+					"previous-text-shadow-offset-x": {
+						"type": "slider-input",
+						"label": "Shadow Offset Horizontal (px)",
+						"condition": {
+							"previous-text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 2,
+						"min": -25,
+						"max": 25,
+						"step": 0.5
+					},
+					"previous-text-shadow-offset-y": {
+						"type": "slider-input",
+						"label": "Shadow Offset Vertical (px)",
+						"condition": {
+							"previous-text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 2,
+						"min": -25,
+						"max": 25,
+						"step": 0.5
+					}
+				}
+			},
+			"current-text-section": {
+				"type": "section",
+				"label": "Current Milestone",
+				"settings": {
+					"current-milestones-toggle": {
+						"type": "toggle-input",
+						"label": "Change appearance for current milestone?",
+						"defaultValue": false
+					},
+					"current-color-settings": {
+						"type": "color-input",
+						"label": "Color Settings",
+						"halfSpan": true
+					},
+					"current-font-weight": {
+						"type": "dropdown-input",
+						"label": "Font Weight",
+						"condition": {},
+						"halfSpan": true,
+						"defaultValue": 400,
+						"options": [
+							{
+								"label": "Thin",
+								"value": 100
+							},
+							{
+								"label": "Extra-Light",
+								"value": 200
+							},
+							{
+								"label": "Light",
+								"value": 300
+							},
+							{
+								"label": "Normal",
+								"value": 400
+							},
+							{
+								"label": "Medium",
+								"value": 500
+							},
+							{
+								"label": "Semi-Bold",
+								"value": 600
+							},
+							{
+								"label": "Bold",
+								"value": 700
+							},
+							{
+								"label": "Extra-Bold",
+								"value": 800
+							},
+							{
+								"label": "Heavy",
+								"value": 900
+							}
+						]
+					},
+					"current-text-outline-color": {
+						"type": "color-input",
+						"label": "Outline Color",
+						"halfSpan": true,
+						"defaultValue": "#000"
+					},
+					"current-text-outline": {
+						"type": "slider-input",
+						"label": "Outline",
+						"halfSpan": true,
+						"defaultValue": 0,
+						"min": 0,
+						"max": 10,
+						"step": 0.5
+					},
+					"current-text-shadow-toggle": {
+						"type": "toggle-input",
+						"label": "Use Shadow?",
+						"condition": {},
+						"defaultValue": true
+					},
+					"current-text-shadow-color": {
+						"type": "color-input",
+						"label": "Shadow Color",
+						"condition": {
+							"current-text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": "#000"
+					},
+					"current-text-shadow-blur": {
+						"type": "slider-input",
+						"label": "Shadow Blur (px)",
+						"condition": {
+							"current-text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 5,
+						"min": 0,
+						"max": 50,
+						"step": 0.5
+					},
+					"current-text-shadow-offset-x": {
+						"type": "slider-input",
+						"label": "Shadow Offset Horizontal (px)",
+						"condition": {
+							"current-text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 2,
+						"min": -25,
+						"max": 25,
+						"step": 0.5
+					},
+					"current-text-shadow-offset-y": {
+						"type": "slider-input",
+						"label": "Shadow Offset Vertical (px)",
+						"condition": {
+							"current-text-shadow-toggle": [
+								true
+							]
+						},
+						"halfSpan": true,
+						"defaultValue": 2,
+						"min": -25,
+						"max": 25,
+						"step": 0.5
+					}
+				}
+			}
+		}
+	}
+}

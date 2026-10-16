@@ -1,0 +1,244 @@
+#widget {
+	--font-size: var(--custom-font-size, 14px);
+	--text-color: var(--custom-text-color, white);
+	--font-weight: var(--custom-font-weight, normal);
+    --text-align: var(--custom-text-align, center);
+    --text-left: var(--custom-text-left, 0px);
+    --text-top: var(--custom-text-top, 0px);
+	--text-background-color: var(--custom-text-background-color, rgba(255,255,255,0));
+	--text-background-border-radius: var(--custom-text-background-border-radius, 5px);
+
+    --text-outline: var(--custom-text-outline, 0px);
+    --text-outline-color: var(--custom-text-outline-color, black);
+
+    --text-shadow-toggle: var(--custom-text-shadow-toggle, '');
+    --text-shadow-blur: var(--custom-text-shadow-blur, 0px);
+    --text-shadow-offset-x: var(--custom-text-shadow-offset-x, 0px);
+    --text-shadow-offset-y: var(--custom-text-shadow-offset-y, 0px);
+    --text-shadow-color: var(--custom-text-shadow-color, black);
+
+    --text-rotation: var(--custom-text-rotate, 0deg);
+
+    --table-spacing: var(--custom-table-spacing, 0px 0px);
+    --table-margin-left: var(--custom-table-margin-left, 0px);
+    --table-margin-top: var(--custom-table-margin-top, 0px);
+
+
+	font-family:
+		var(--custom-font-name), 'Inter', Nunito, Helvetica, Arial, sans-serif;
+
+	font-weight: var(--font-weight);
+	font-size: var(--font-size);
+	color: var(--text-color);
+	position: relative;
+	inset: 0;
+    margin-left: var(--table-margin-left);
+    margin-top: var(--table-margin-top);
+}
+
+.text {
+    position: relative; 
+    z-index: 2; 
+    color: var(--text-color);
+    padding: 2px 12px;
+    font-weight: var(--font-weight);
+    font-size: var(--font-size);   
+    white-space: nowrap;
+    pointer-events: none;
+    padding: var(--custom-padding-top) var(--custom-padding-right) var(--custom-padding-bottom) var(--custom-padding-left);
+    background-color: var(--text-background-color);
+    border-radius: var(--text-background-border-radius);
+    left: var(--text-left);
+    top: var(--text-top);
+    transform: rotate(var(--text-rotation));
+    text-shadow: var(--text-shadow-offset-x) var(--text-shadow-offset-y) var(--text-shadow-blur) var(--text-shadow-color);
+    -webkit-text-stroke: var(--text-outline) var(--text-outline-color);
+    width: fit-content;
+    margin: auto;
+}
+
+.progress-container {
+    height: 100%;
+    width: 100%;
+    background-color: var(--bar-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: var(--bar-border-size) solid var(--bar-border-color);
+    position: relative; 
+    display: flex;
+    justify-content: var(--text-align);
+    align-items: center;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background-color: var(--bar-fill-color);
+    transition: width 0.5s ease-out;
+    position: absolute; 
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+#stats {
+    position: relative; 
+    z-index: 2;
+    background-color: var(--text-background-color);
+    color: var(--text-color);
+    padding: var(--custom-padding-top) var(--custom-padding-right) var(--custom-padding-bottom) var(--custom-padding-left);
+    border-radius: var(--text-background-border-radius);
+    font-weight: var(--font-weight);
+    font-size: var(--font-size);   
+    white-space: nowrap;
+    pointer-events: none;
+    left: var(--text-left);
+    top: var(--text-top);
+    transform: rotate(var(--text-rotation));
+    text-shadow: var(--text-shadow-offset-x) var(--text-shadow-offset-y) var(--text-shadow-blur) var(--text-shadow-color);
+    -webkit-text-stroke: var(--text-outline) var(--text-outline-color);
+}
+
+
+
+.text-title-settings {
+    position: relative; 
+    z-index: 3;
+    background-color: var(--title-text-background-color);
+    color: var(--title-text-color);
+    border-radius: var(--title-text-background-border-radius);
+    padding: var(--custom-title-padding-top) var(--custom-title-padding-right) var(--custom-title-padding-bottom) var(--custom-title-padding-left);
+
+    font-family:
+		var(--custom-title-font-name), 'Inter', Nunito, Helvetica, Arial, sans-serif;
+
+	font-weight: var(--title-font-weight);
+	font-size: var(--title-font-size);
+    text-shadow: var(--title-text-shadow-offset-x) var(--title-text-shadow-offset-y) var(--title-text-shadow-blur) var(--title-text-shadow-color);
+    -webkit-text-stroke: var(--title-text-outline) var(--title-text-outline-color);
+}
+
+#text-title {
+    display: var(--text-title-display);
+}
+
+
+th, td {
+    width: 100%;
+}
+
+table {
+    border-collapse: separate;  
+    border-spacing: var(--table-spacing); /* h and v spacing between colums/rows */
+}
+
+.milestone-decoration {
+    width:10px;
+}
+
+.milestone-amounts {
+    text-align: var(--custom-amount-text-align);
+    z-index: var(--custom-amount-text-z);
+    width: 100%;
+}
+
+
+.milestone-amounts-settings {
+    position: relative; 
+    z-index: 3;
+    color: var(--custom-amount-text-color);
+    padding: var(--custom-amount-padding-top) var(--custom-amount-padding-right) var(--custom-amount-padding-bottom) var(--custom-amount-padding-left);
+    font-family:
+		var(--custom-custom-amount-font-name), 'Inter', Nunito, Helvetica, Arial, sans-serif;
+
+	font-weight: var(--custom-amount-font-weight);
+	font-size: var(--custom-amount-font-size);
+    -webkit-text-stroke: var(--custom-amount-text-outline) var(--custom-amount-text-outline-color);
+}
+
+.milestone-amounts-position {
+    left: var(--custom-amount-text-left);
+    top: var(--custom-amount-text-top);
+    transform: rotate(var(--custom-amount-text-rotate));
+}
+
+.milestone-amounts-background {
+    padding: var(--custom-amount-padding-top) var(--custom-amount-padding-right) var(--custom-amount-padding-bottom) var(--custom-amount-padding-left);
+
+    background-color: var(--custom-amount-text-background-color);
+    border-radius: var(--custom-amount-text-background-border-radius);
+
+}
+
+.milestone-amounts-shadow {
+    text-shadow: var(--custom-amount-text-shadow-offset-x) var(--custom-amount-text-shadow-offset-y) var(--custom-amount-text-shadow-blur) var(--custom-amount-text-shadow-color);
+}
+
+.milestone-text {
+    text-align: var(--text-align);
+    z-index: var(--custom-text-z);
+}
+
+
+
+/* Styling for different milestone states */ 
+.milestone-past-appearance {
+    color: var(--custom-previous-color-settings);
+    font-weight: var(--custom-previous-font-weight);
+    -webkit-text-stroke: var(--custom-previous-text-outline) var(--custom-previous-text-outline-color);
+    text-shadow: var(--custom-previous-text-shadow-offset-x) var(--custom-previous-text-shadow-offset-y) var(--custom-previous-text-shadow-blur) var(--custom-previous-text-shadow-color);
+}
+
+.milestone-current {
+    /* color:green; */
+}
+
+.milestone-current-appearance {
+    color: var(--custom-current-color-settings);
+    font-weight: var(--custom-current-font-weight);
+    -webkit-text-stroke: var(--custom-current-text-outline) var(--custom-current-text-outline-color);
+    text-shadow: var(--custom-current-text-shadow-offset-x) var(--custom-current-text-shadow-offset-y) var(--custom-current-text-shadow-blur) var(--custom-current-text-shadow-color);
+}
+
+.milestone-next {
+    /* color: blue; */
+}
+
+.milestone-future {
+    /* color:aqua; */
+}
+
+
+/* Milestone Progress Decoration on right*/
+.milestone-dot {
+    height: 15px;  /* Dot Size */
+    width: 15px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: center;
+}
+
+.milestone-rect-container {
+    left: -7px;
+    height: 100%;
+    position: relative;
+    text-decoration:none;
+}
+
+.milestone-rect {
+    height: 100%;
+    width: 4px;
+    background-color: #bbb;
+    display: inline-block;
+    position: relative;
+    vertical-align: center;
+    top: 50%;
+    left: -30%;
+}
+
+
+/* hide rows */
+.hide {
+    display: none;
+}
