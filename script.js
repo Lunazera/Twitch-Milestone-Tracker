@@ -547,6 +547,9 @@ function findNextMilestone(val) {
 
 		if (currentAmount < amount) {
 			break;
+		} else if (i == ParsedMilestoneList.length - 1) {
+			// Check if we are past the last milestone, set current index to one over if so
+			MilestoneIndex = i + 1;
 		}
 	}
 }
